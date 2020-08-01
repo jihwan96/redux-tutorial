@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from "redux";
+import {Provider} from "react-redux";
 
-const store = createStore();
-
-console.log(store);
+// commonJS 스펙의 import 규칙
+// .js의 파일을 찾는다.
+// 파일명이 없는 경우 index.js 우선 탐색
+import {store} from "./redux/store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

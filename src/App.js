@@ -1,26 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {connect} from "react-redux";
+import {updateUser} from "./redux/actions";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props) {
+    return (
+        <div className="App">
+            <p>{props.userName}</p>
+        </div>
+    );
 }
 
-export default App;
+// Hoc : 컴포넌트를 입력으로 넣으면 기능을 추가한 신규 컴포넌트가 리턴
+// curring
+const mapStateToProps = (state) => ({
+    // 왼쪽이 props, 오른쪽 store의 state
+    userName: state.user
+});
+
+export default connect(mapStateToProps)(App);
+
+// mapFunctionToDispatchActionToProps << 하기 함수 풀네임
+const mapActionToProps = (dispatch) => ({
+    // 왼쪽은 props, 오른쪽은 (액션을 디스패치하는) function
+    bbb: (name) => dispatch(updateUser(name))
+})
